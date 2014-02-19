@@ -66,7 +66,8 @@ namespace Thinktecture.AuthorizationServer
                     handle.Application,
                     resourceOwner.Claims,
                     handle.Scopes,
-                    handle.RefreshTokenExpiration.Value);
+                    handle.RefreshTokenExpiration.Value,
+                    validatedRequest.Client.AllowRefreshToken && validatedRequest.Application.AllowRefreshToken);
 
                 handleManager.Add(refreshTokenHandle);
                 response.RefreshToken = refreshTokenHandle.GrantId;
@@ -96,8 +97,31 @@ namespace Thinktecture.AuthorizationServer
             };
 
             var response = CreateTokenResponse(validatedRequest, resourceOwner);
-            response.RefreshToken = handle.GrantId;
-            
+
+            if (handle.CreateRefreshToken)
+            {
+                // Get new refresh token expiration
+                var rememberTimeSpan = handle.Expiration.Subtract(handle.Created);
+                var newRefreshTokenExpiration = DateTime.UtcNow.Add(rememberTimeSpan);
+
+                var refreshTokenHandle = StoredGrant.CreateRefreshTokenHandle(
+                    resourceOwner.GetSubject(),
+                    handle.Client,
+                    handle.Application,
+                    resourceOwner.Claims,
+                    handle.Scopes,
+                    newRefreshTokenExpiration,
+                    validatedRequest.Client.AllowRefreshToken && validatedRequest.Application.AllowRefreshToken);
+
+                response.RefreshToken = refreshTokenHandle.GrantId;
+                handleManager.Add(refreshTokenHandle);
+
+                handleManager.Delete(handle.GrantId);
+            }
+            else
+            {
+                response.RefreshToken = handle.GrantId;
+            }    
             return response;
         }
 
