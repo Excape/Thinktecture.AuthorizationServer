@@ -30,6 +30,11 @@ namespace Thinktecture.AuthorizationServer.Test
             return application;
         }
 
+        public List<RememberOption> GetRememberOptions()
+        {
+            throw new System.NotImplementedException();
+        }
+
         private void PopulateData()
         {
             var resourceOwnerClient = new Client

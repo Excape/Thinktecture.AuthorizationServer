@@ -55,8 +55,7 @@ namespace Thinktecture.AuthorizationServer.Models
             IEnumerable<Claim> claims,
             IEnumerable<Scope> scopes,
             DateTime expiration,
-            bool createRefreshToken = false,
-            DateTime? refreshTokenExpiration = null)
+            bool createRefreshToken = false)
         {
             if (client == null) throw new ArgumentNullException("client");
             if (application == null) throw new ArgumentNullException("application");

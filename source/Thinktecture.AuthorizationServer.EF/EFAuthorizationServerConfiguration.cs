@@ -3,8 +3,10 @@
  * see license.txt
  */
 
+using System.Collections.Generic;
 using System.Linq;
 using Thinktecture.AuthorizationServer.Interfaces;
+using Thinktecture.AuthorizationServer.Models;
 
 namespace Thinktecture.AuthorizationServer.EF
 {
@@ -25,6 +27,11 @@ namespace Thinktecture.AuthorizationServer.EF
         public Models.Application FindApplication(string url)
         {
             return db.Applications.SingleOrDefault(x => x.Namespace == url);
+        }
+
+        public List<RememberOption> GetRememberOptions()
+        {
+            return db.RememberOptions.ToList();
         }
     }
 }

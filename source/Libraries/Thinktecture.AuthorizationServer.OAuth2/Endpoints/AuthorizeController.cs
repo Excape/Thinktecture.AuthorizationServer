@@ -56,6 +56,8 @@ namespace Thinktecture.AuthorizationServer.OAuth2
 
             if (validatedRequest.ShowConsent)
             {
+                validatedRequest.RememberOptions = _config.GetRememberOptions();
+
                 // todo: check first if a remembered consent decision exists
                 if (validatedRequest.ResponseType == OAuthConstants.ResponseTypes.Token)
                 {
@@ -69,6 +71,7 @@ namespace Thinktecture.AuthorizationServer.OAuth2
                     if (handle != null)
                     {
                         Tracing.Verbose("Stored consent decision found.");
+
                         return PerformGrant(validatedRequest);
                     }
                 }

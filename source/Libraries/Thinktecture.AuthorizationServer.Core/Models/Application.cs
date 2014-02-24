@@ -41,6 +41,8 @@ namespace Thinktecture.AuthorizationServer.Models
         public virtual SigningKey SigningKey { get; set; }
 
         public virtual List<Scope> Scopes { get; set; }
+
+        public List<RememberOption> RememberOptions { get; set; } 
         
         public IEnumerable<Client> Clients
         {

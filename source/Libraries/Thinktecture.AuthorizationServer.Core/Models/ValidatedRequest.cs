@@ -27,6 +27,7 @@ namespace Thinktecture.AuthorizationServer.Models
         public bool RequestingRefreshToken { get; set; }
         public DateTime RequestedRefreshTokenExpiration { get; set; }
         public bool ShowConsent { get; set; }
-        public bool ShowRememberConsent { get; set; }
+        public bool ShowRememberConsent { get; set; } 
+        public List<RememberOption> RememberOptions { get; set; } 
     }
 }

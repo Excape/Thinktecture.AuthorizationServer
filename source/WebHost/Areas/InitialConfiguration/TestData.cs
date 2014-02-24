@@ -28,6 +28,7 @@ namespace Thinktecture.AuthorizationServer.WebHost
                 var ImplicitClient = db.Clients.Find("implicitclient");
                 var client = db.Clients.Find("client");
                 var assertionClient = db.Clients.Find("assertionclient");
+                var hsrClient = db.Clients.Find("HsrCodeClient ");
 
                 if (client == null)
                 {
@@ -142,6 +143,34 @@ namespace Thinktecture.AuthorizationServer.WebHost
                     ImplicitClient.SetSharedSecret("secret");
                     db.Clients.Add(ImplicitClient);
                     db.SaveChanges();
+
+                    if (hsrClient == null)
+                    {
+                        hsrClient = new Client
+                        {
+                            Enabled = true,
+                            Name = "HsrCodeClient",
+                            ClientId = "HsrCodeClient",
+                            AuthenticationMethod = ClientAuthenticationMethod.SharedSecret,
+
+                            AllowRefreshToken = true,
+                            RequireConsent = true,
+                            Flow = OAuthFlow.Code,
+
+                            RedirectUris = new List<ClientRedirectUri> 
+                        {
+                            new ClientRedirectUri
+                            {
+                                Uri = "oauthclientcode://",
+                                Description = "oAuth2TestClient"
+                            }
+                        }
+                        };
+                        hsrClient.SetSharedSecret("secret");
+                        db.Clients.Add(hsrClient);
+                        db.SaveChanges();
+                    }
+
                 }
 
                 //if (!db.SigningKeys.Any())
@@ -161,7 +190,7 @@ namespace Thinktecture.AuthorizationServer.WebHost
                 {
                     var readScope = new Scope
                     {
-                        AllowedClients = new List<Client> { CodeClient, ImplicitClient, resourceOwnerClient, client, assertionClient },
+                        AllowedClients = new List<Client> { CodeClient, ImplicitClient, resourceOwnerClient, client, assertionClient, hsrClient },
                         Name = "read",
                         DisplayName = "Read data",
                         Description = "Allows to read data",
@@ -170,7 +199,7 @@ namespace Thinktecture.AuthorizationServer.WebHost
 
                     var searchScope = new Scope
                     {
-                        AllowedClients = new List<Client> { CodeClient, resourceOwnerClient },
+                        AllowedClients = new List<Client> { CodeClient, resourceOwnerClient, hsrClient },
                         Name = "search",
                         DisplayName = "Search data",
                         Description = "Allows to search for data",
@@ -189,6 +218,9 @@ namespace Thinktecture.AuthorizationServer.WebHost
                     var key = new SymmetricKey { Name = "Demo signing key" };
                     key.SetValue(Convert.FromBase64String("1fTiS2clmPTUlNcpwYzd5i4AEFJ2DEsd8TcUsllmaKQ="));
 
+                    var hsrKey = new SymmetricKey { Name = "HsrAppKey" };
+                    hsrKey.SetValue(Convert.FromBase64String("i4SpI3zdts0yIHhfbBIeR4VuG1MJCfM1wcUZ2LVPFWA="));
+
                     var application = new Application
                     {
                         Enabled = true,
@@ -206,6 +238,25 @@ namespace Thinktecture.AuthorizationServer.WebHost
                     };
                     
                     db.Applications.Add(application);
+                    db.SaveChanges();
+
+                    var hsrApplication = new Application
+                    {
+                        Enabled = true,
+                        Name = "HsrTestApp",
+                        Namespace = "HsrTestApp",
+                        Audience = "HsrTestApp",
+                        Description = "HSR Test App",
+                        Scopes = new List<Scope> { readScope, searchScope },
+                        RequireConsent = true,
+                        TokenLifetime = 1,
+                        AllowRefreshToken = true,
+                        AllowRememberConsentDecision = true,
+                        SigningKey = hsrKey
+                    };
+
+                    db.Applications.Add(hsrApplication);
+
                     db.SaveChanges();
                 }
             }

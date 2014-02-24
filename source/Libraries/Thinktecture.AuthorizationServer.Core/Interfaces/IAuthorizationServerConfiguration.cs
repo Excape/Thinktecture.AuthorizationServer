@@ -3,6 +3,7 @@
  * see license.txt
  */
 
+using System.Collections.Generic;
 using Thinktecture.AuthorizationServer.Models;
 
 namespace Thinktecture.AuthorizationServer.Interfaces
@@ -11,5 +12,6 @@ namespace Thinktecture.AuthorizationServer.Interfaces
     {
         GlobalConfiguration GlobalConfiguration { get; }
         Application FindApplication(string url);
+        List<RememberOption> GetRememberOptions();
     }
 }

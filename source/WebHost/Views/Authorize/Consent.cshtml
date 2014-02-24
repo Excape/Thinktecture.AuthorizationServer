@@ -1,4 +1,5 @@
-﻿@model Thinktecture.AuthorizationServer.Models.ValidatedRequest
+﻿@using Thinktecture.AuthorizationServer.Models
+@model Thinktecture.AuthorizationServer.Models.ValidatedRequest
 
 @{
     ViewBag.Title = "Authorize";
@@ -67,7 +68,7 @@
                 
                 <div>
                     <label for="rememberDuration">Allow offline use for:</label>
-                    <select id="rememberDuration" name="rememberDuration">
+                    @*<select id="rememberDuration" name="rememberDuration">
                         <option value="1" selected="@("1".Equals(Request["rememberDuration"]))">1 hour</option>
                         <option value="3" selected="@("3".Equals(Request["rememberDuration"]))">3 hours</option>
                         <option value="12" selected="@("12".Equals(Request["rememberDuration"]))">12 hours</option>
@@ -80,7 +81,15 @@
                         <option value="4380" selected="@("4380".Equals(Request["rememberDuration"]))">6 months</option>
                         <option value="8760" selected="@("8760".Equals(Request["rememberDuration"]))">1 year</option>
                         <option value="-1" selected="@("-1".Equals(Request["rememberDuration"]))">forever</option>
+                    </select>*@
+                    
+                    <select id="rememberDuration" name="rememberDuration">
+                        @foreach (var option in @Model.RememberOptions)
+                        {
+                            <option value="@option.Value" selected="@option.Value.Equals(Convert.ToInt32(Request["rememberDuration"]))">@option.OptionLabel</option>
+                        }
                     </select>
+
                 </div>
             }
             else if (Model.ShowRememberConsent)

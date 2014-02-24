@@ -78,6 +78,7 @@
     <Compile Include="Models\ClientAuthenticationMethod.cs" />
     <Compile Include="Extensions\ClientExtensions.cs" />
     <Compile Include="Models\GlobalConfiguration.cs" />
+    <Compile Include="Models\RememberOption.cs" />
     <Compile Include="Models\SigningKey.cs" />
     <Compile Include="Models\StoredGrant.cs" />
     <Compile Include="Models\OAuth2Flow.cs" />
