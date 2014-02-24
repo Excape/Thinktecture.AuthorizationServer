@@ -10,9 +10,9 @@ namespace Thinktecture.AuthorizationServer.Models
     public class RememberOption
     {
         [Key]
-        public int ID { get; set; }
+        public virtual int ID { get; set; }
 
-        public string OptionLabel { get; set; }
-        public int Value { get; set; }
+        public virtual string OptionLabel { get; set; }
+        public virtual int Value { get; set; }
     }
 }

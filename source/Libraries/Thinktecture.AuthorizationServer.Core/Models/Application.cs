@@ -42,7 +42,7 @@ namespace Thinktecture.AuthorizationServer.Models
 
         public virtual List<Scope> Scopes { get; set; }
 
-        public List<RememberOption> RememberOptions { get; set; } 
+        public virtual List<RememberOption> RememberOptions { get; set; } 
         
         public IEnumerable<Client> Clients
         {
@@ -52,7 +52,7 @@ namespace Thinktecture.AuthorizationServer.Models
                     from s in this.Scopes ?? Enumerable.Empty<Scope>()
                     select s.AllowedClients;
                 var result = query.SelectMany(x => x);
-                return result;
+                return result; 
             }
         }
 

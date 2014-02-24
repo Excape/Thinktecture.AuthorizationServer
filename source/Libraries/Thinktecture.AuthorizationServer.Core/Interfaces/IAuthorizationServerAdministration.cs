@@ -24,6 +24,7 @@ namespace Thinktecture.AuthorizationServer.Interfaces
         IRepository<ClientRedirectUri> ClientRedirects { get; }
         IRepository<SigningKey> Keys { get; }
         IRepository<StoredGrant> Tokens { get; }
+        IRepository<RememberOption> RememberOptions { get; } 
 
         void SaveChanges();
     }

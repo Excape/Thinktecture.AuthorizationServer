@@ -12,6 +12,10 @@
     <li class="hide" data-bind="css: { hide: !menusEnabled() }">
         <a data-bind="attr: { href: '@url#' + $data.id() }">Scopes</a>
     </li>
+    @{ var url2 = @Url.Action("RememberOptions"); }
+    <li class="hide" data-bind="css: { hide: !menusEnabled() }">
+        <a data-bind="attr: { href: '@url2#' + $data.id() }">Remember Options</a>
+    </li>
 </ul>
 <fieldset>
     <legend></legend>
