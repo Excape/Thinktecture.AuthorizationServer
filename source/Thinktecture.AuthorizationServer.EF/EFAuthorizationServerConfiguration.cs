@@ -28,10 +28,5 @@ namespace Thinktecture.AuthorizationServer.EF
         {
             return db.Applications.SingleOrDefault(x => x.Namespace == url);
         }
-
-        public List<RememberOption> GetRememberOptions()
-        {
-            return db.RememberOptions.ToList();
-        }
     }
 }

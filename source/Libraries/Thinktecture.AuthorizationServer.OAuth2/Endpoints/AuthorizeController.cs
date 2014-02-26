@@ -4,6 +4,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
@@ -56,7 +57,7 @@ namespace Thinktecture.AuthorizationServer.OAuth2
 
             if (validatedRequest.ShowConsent)
             {
-                validatedRequest.RememberOptions = _config.GetRememberOptions();
+                validatedRequest.RememberOptions = GetRememberOptions(application);
 
                 // todo: check first if a remembered consent decision exists
                 if (validatedRequest.ResponseType == OAuthConstants.ResponseTypes.Token)
@@ -89,6 +90,13 @@ namespace Thinktecture.AuthorizationServer.OAuth2
             return PerformGrant(validatedRequest);
         }
 
+        private static List<RememberOption> GetRememberOptions(Application application)
+        {
+            return (from r in application.RememberOptions
+                orderby (r.Value == -1 ? int.MaxValue : r.Value)
+                select r).ToList();
+        }
+
         [ActionName("Index")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,6 +126,7 @@ namespace Thinktecture.AuthorizationServer.OAuth2
                 try
                 {
                     validatedRequest = new AuthorizeRequestValidator().Validate(application, request);
+                    validatedRequest.RememberOptions = GetRememberOptions(application);
                 }
                 catch (AuthorizeRequestValidationException ex)
                 {
@@ -131,6 +140,14 @@ namespace Thinktecture.AuthorizationServer.OAuth2
                     return View("Consent", validatedRequest);
                 }
 
+                if (rememberDuration != null)
+                {
+                    if (!application.RememberOptions.Any(r => r.Value == rememberDuration))
+                    {
+                        ModelState.AddModelError("", "Please choose a duration from the list.");
+                        return View("Consent", validatedRequest);
+                    }
+                }
                 // parse scopes form post and substitue scopes
                 validatedRequest.Scopes.RemoveAll(x => !scopes.Contains(x.Name));
 

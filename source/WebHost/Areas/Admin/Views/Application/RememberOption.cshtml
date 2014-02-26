@@ -16,7 +16,7 @@
     <fieldset>
         <legend></legend>
         <div>
-            <input id="userValue" style="width: 10%" data-bind="value: userValue, valueUpdate: 'keyup'"/>
+            <input id="userValue" style="width: 10%" data-bind="value: userValue, valueUpdate: 'keyup', enable: optionSelectNotForever"/>
             <select id="optionSelect" name="optionSelect" style="width: 20%" data-bind="value: optionSelect">
                 <option value="1">hours</option>
                 <option value="24">days</option>
@@ -26,16 +26,6 @@
                 <option value="-1">Forever</option>
             </select>
         </div>
-        @*<div>
-            <label for="optionLabel">Label</label>
-            <input id="optionLabel" data-bind="value: optionLabel, valueUpdate: 'keyup'" />
-            <label class="text-error" data-bind="text: optionLabelError"></label>
-        </div>
-        <div>
-            <label for="value">Value in hours</label>
-            <input id="value" data-bind="value: value, valueUpdate: 'keyup'" />
-            <label class="text-error" data-bind="text: valueError"></label>
-        </div>*@
         <div>
             <button class="btn btn-primary" data-bind="click: save, disable: anyErrors">Save</button></div>
     </fieldset>

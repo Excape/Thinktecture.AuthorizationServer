@@ -34,6 +34,7 @@ namespace Thinktecture.AuthorizationServer.WebHost.Areas.Admin.Api
 
             var data =
                  from s in app.RememberOptions
+                 orderby (s.Value == -1 ? int.MaxValue : s.Value)
                  select new
                  {
                      s.ID,
@@ -73,6 +74,30 @@ namespace Thinktecture.AuthorizationServer.WebHost.Areas.Admin.Api
                 rememberOption.OptionLabel,
                 rememberOption.Value
             });
+        }
+
+        //
+        // Apply default options
+        public HttpResponseMessage Put(int id)
+        {
+            var app = config.Applications.All.SingleOrDefault(x => x.ID == id);
+            if (app == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            RememberOptionsDefaultData.Populate(app, config);
+
+            var data =
+                from s in app.RememberOptions
+                select new
+                {
+                    s.ID,
+                    s.OptionLabel,
+                    s.Value
+                };
+
+            return Request.CreateResponse(HttpStatusCode.OK, data.ToArray());
         }
 	}
 }

@@ -10,7 +10,7 @@
 
     function RemOptions(list) {
         this.appID = ko.observable(appID);
-        this.rememberoptions = ko.mapping.fromJS(list);
+        this.rememberoptions = ko.mapping.fromJS(ko.observableArray(list));
         this.newRememberOption = ko.mapping.fromJS({
             optionLabel: "", value: ""
         });
@@ -18,12 +18,21 @@
         as.util.addRequired(this.newRememberOption, "value", "Value");
         as.util.addAnyErrors(this.newRememberOption);
     }
-    RemOptions.prototype.addRememberOption = function () {
+    RemOptions.prototype.addRememberOption = function (data) {
         var vm = this;
-        svc.post(ko.mapping.toJS(vm.newRememberOption), appID).then(function (data) {
-            vm.rememberoptions.push(ko.mapping.fromJS(data));
-            vm.newRememberOption.optionLabel("");
-            vm.newRememberOption.value("");
+        
+        vm.rememberoptions.push(ko.mapping.fromJS(data));
+        vm.newRememberOption.optionLabel("");
+        vm.newRememberOption.value("");
+};
+
+    RemOptions.prototype.populateDefaultOptions = function() {
+        var vm = this;
+        svc.put(null, appID).then(function(data) {      
+            vm.rememberoptions.removeAll();
+            data.forEach(function(entry) {
+                vm.addRememberOption(entry);
+            });
         });
     };
 

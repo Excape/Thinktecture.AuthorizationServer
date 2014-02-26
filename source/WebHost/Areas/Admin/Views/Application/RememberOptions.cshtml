@@ -16,6 +16,21 @@
     </li>
 </ul>
 
+<div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Apply Default Options
+        <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="#" data-bind="click: function() { populateDefaultOptions() }"><span class="icon-ok"></span>
+                Confirm</a>
+        </li>
+        <li>                            
+            <a href="#"><span class="icon-remove"></span>
+                Cancel</a>
+        </li>
+    </ul>
+</div>
+
 <table class="table table-striped hide table-condensed" data-bind="css: { hide: !rememberoptions().length }">
     <thead>
         <tr>
@@ -51,7 +66,7 @@
 
 </table>
 
-<p data-bind="css: { hide: rememberoptions().length }" class="alert alert-warning hide">
+<p data-bind="css: { hide: rememberoptions().length }" class="alert alert-warning hide" style="margin-top: 10pt">
     No Remember Options found
 </p>
 

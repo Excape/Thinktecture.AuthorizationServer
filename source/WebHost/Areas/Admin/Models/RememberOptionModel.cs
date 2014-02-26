@@ -11,8 +11,7 @@ namespace Thinktecture.AuthorizationServer.WebHost.Areas.Admin.Models
         [Required]
         [Range(-1, Int32.MaxValue)]
         public int OptionSelect { get; set; }
-        [Range(0, Int32.MaxValue)]
-        [Required]
-        public int UserValue { get; set; }
+        [Range(0, 1000)]
+        public int? UserValue { get; set; }
     }
 }

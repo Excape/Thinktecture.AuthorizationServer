@@ -21,7 +21,9 @@
             id: 0,
             optionSelect: "",
             userValue: ""
-        }; 
+        };
+
+        data.userValue = data.userValue != "-1" ? data.userValue : null;
         
         ko.mapping.fromJS(data, null, this);
 
@@ -37,14 +39,20 @@
         vm.menusEnabled = ko.computed(function() {
             return !vm.isNew();
         });
+        vm.optionSelectNotForever = ko.computed(function() {
+            return vm.optionSelect() != "-1";
+        });
 
-        //as.util.addRequired(this, "optionLabel", "Label");
-        //as.util.addRequired(this, "value", "Value in hours");
-        //// todo: validation
-        ////as.util.addValidation(this, "value", "Value in hours");
+        as.util.addValidation(this, "userValue", "Value as Integer", ko.computed(function() {
+            var str = vm["userValue"]();
+            var n = parseInt(str);
+            return (!isNaN(Number(str)) && parseFloat(str) == n && n > 0 && n <= 1000)
+                || !vm.optionSelectNotForever();
+        }));
         as.util.addAnyErrors(this);
 
-        vm.save = function() {
+        vm.save = function () {
+            vm["userValue"] = vm["userValue"] == null ? "0" : vm["userValue"];
             if (vm.isNew()) {
                 svc.post(ko.mapping.toJS(vm)).then(function(data, status, xhr) {
                     rememberOptionID = data.id;
@@ -55,9 +63,6 @@
 
                     vm.id(data.id);
                     vm.isNew(false);
-
-                    svc = new as.Service("admin/RememberOptions/" + rememberOptionID);
-
                 });
             } else {
                 svc.put(ko.mapping.toJS(vm));

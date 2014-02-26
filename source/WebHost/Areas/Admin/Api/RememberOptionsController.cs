@@ -37,18 +37,23 @@ namespace Thinktecture.AuthorizationServer.WebHost.Areas.Admin.Api
             switch (m.Groups[2].Value)
             {
                 case "hours":
+                case "hour":
                     timeUnit = 1;
                     break;
                 case "days":
+                case "day":
                     timeUnit = 24;
                     break;
                 case "weeks":
+                case "week":
                     timeUnit = 168;
                     break;
                 case "months":
+                case "month":
                     timeUnit = 720;
                     break;
                 case "years":
+                case "year":
                     timeUnit = 8640;
                     break;
             }
@@ -57,6 +62,7 @@ namespace Thinktecture.AuthorizationServer.WebHost.Areas.Admin.Api
             if (rememberOption.OptionLabel == "Forever")
             {
                 timeUnit = -1;
+                expirationValue = -1;
             }
             else
             {

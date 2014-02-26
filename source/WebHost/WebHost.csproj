@@ -191,6 +191,7 @@
     <Compile Include="Areas\Admin\Api\RememberOptionsController.cs" />
     <Compile Include="Areas\Admin\Api\Utility\ModelStateDictionaryExtensions.cs" />
     <Compile Include="Areas\Admin\Api\Utility\RememberOptionParser.cs" />
+    <Compile Include="Areas\Admin\Api\Utility\RememberOptionsDefaultData.cs" />
     <Compile Include="Areas\Admin\Api\Utility\X509CertificateReferenceFormatter.cs" />
     <Compile Include="Areas\Admin\Api\X509KeysController.cs" />
     <Compile Include="Areas\Admin\Api\SymmetricKeysController.cs" />
@@ -377,7 +378,6 @@
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\RememberOptions\" />
     <Folder Include="Areas\InitialConfiguration\Views\Shared\" />
     <Folder Include="Content\themes\base\images\" />
     <Folder Include="Content\themes\base\minified\images\" />
