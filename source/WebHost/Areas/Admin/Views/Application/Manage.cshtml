@@ -13,7 +13,7 @@
         <a data-bind="attr: { href: '@url#' + $data.id() }">Scopes</a>
     </li>
     @{ var url2 = @Url.Action("RememberOptions"); }
-    <li class="hide" data-bind="css: { hide: !rememberOptionVisible() }">
+    <li class="hide" data-bind="css: { hide: !menusEnabled() }">
         <a data-bind="attr: { href: '@url2#' + $data.id() }">Consent Remember Options</a>
     </li>
 </ul>
