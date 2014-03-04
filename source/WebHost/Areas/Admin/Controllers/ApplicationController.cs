@@ -30,5 +30,15 @@ namespace Thinktecture.AuthorizationServer.WebHost.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public ActionResult RememberOptions()
+        {
+            return View();
+        }
+
+        public ActionResult RememberOption()
+        {
+            return View();
+        }
     }
 }

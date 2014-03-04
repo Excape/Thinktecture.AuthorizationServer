@@ -22,6 +22,7 @@ namespace Thinktecture.AuthorizationServer.EF
         public DbSet<ClientRedirectUri> ClientRedirectUris { get; set; }
         public DbSet<SigningKey> SigningKeys { get; set; }
         public DbSet<StoredGrant> StoredGrants { get; set; }
+        public DbSet<RememberOption> RememberOptions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -30,6 +31,7 @@ namespace Thinktecture.AuthorizationServer.EF
             modelBuilder.Entity<Scope>().HasMany(x => x.AllowedClients).WithMany();
             modelBuilder.Entity<StoredGrant>().HasMany(x => x.Scopes).WithMany();
             modelBuilder.Entity<StoredGrant>().HasMany(x => x.ResourceOwner).WithRequired();
+            modelBuilder.Entity<Application>().HasMany(x => x.RememberOptions).WithRequired();
         }
     }
 }

@@ -68,18 +68,10 @@
                 <div>
                     <label for="rememberDuration">Allow offline use for:</label>
                     <select id="rememberDuration" name="rememberDuration">
-                        <option value="1" selected="@("1".Equals(Request["rememberDuration"]))">1 hour</option>
-                        <option value="3" selected="@("3".Equals(Request["rememberDuration"]))">3 hours</option>
-                        <option value="12" selected="@("12".Equals(Request["rememberDuration"]))">12 hours</option>
-                        <option value="24" selected="@("24".Equals(Request["rememberDuration"]))">1 day</option>
-                        <option value="72" selected="@("72".Equals(Request["rememberDuration"]))">3 days</option>
-                        <option value="168" selected="@("168".Equals(Request["rememberDuration"]))">1 week</option>
-                        <option value="336" selected="@("336".Equals(Request["rememberDuration"]))">2 weeks</option>
-                        <option value="720" selected="@("720".Equals(Request["rememberDuration"]))">1 month</option>
-                        <option value="2190" selected="@("2190".Equals(Request["rememberDuration"]))">3 months</option>
-                        <option value="4380" selected="@("4380".Equals(Request["rememberDuration"]))">6 months</option>
-                        <option value="8760" selected="@("8760".Equals(Request["rememberDuration"]))">1 year</option>
-                        <option value="-1" selected="@("-1".Equals(Request["rememberDuration"]))">forever</option>
+                        @foreach (var option in @Model.RememberOptions)
+                        {
+                            <option value="@option.Value" selected="@option.Value.Equals(Convert.ToInt32(Request["rememberDuration"]))">@option.OptionLabel</option>
+                        }
                     </select>
                 </div>
             }

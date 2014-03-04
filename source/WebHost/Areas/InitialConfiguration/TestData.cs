@@ -189,6 +189,8 @@ namespace Thinktecture.AuthorizationServer.WebHost
                     var key = new SymmetricKey { Name = "Demo signing key" };
                     key.SetValue(Convert.FromBase64String("1fTiS2clmPTUlNcpwYzd5i4AEFJ2DEsd8TcUsllmaKQ="));
 
+                    var rememberOptions = RememberOptionsDefaultData.CreateRememberOptions();
+
                     var application = new Application
                     {
                         Enabled = true,
@@ -202,7 +204,8 @@ namespace Thinktecture.AuthorizationServer.WebHost
                         TokenLifetime = 60,
                         AllowRefreshToken = true,
                         AllowRememberConsentDecision = true,
-                        SigningKey = key
+                        SigningKey = key,
+                        RememberOptions = rememberOptions
                     };
                     
                     db.Applications.Add(application);

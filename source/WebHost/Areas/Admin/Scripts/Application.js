@@ -37,6 +37,10 @@ $(function () {
             return !vm.isNew();
         });
 
+        vm.rememberOptionVisible = ko.computed(function() {
+            return vm.menusEnabled() && vm.requireConsent();
+        });
+
         vm.editDescription = ko.computed(function () {
             return vm.isNew() ? "New" : "Manage";
         });

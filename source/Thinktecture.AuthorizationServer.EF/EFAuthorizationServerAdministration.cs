@@ -84,6 +84,14 @@ namespace Thinktecture.AuthorizationServer.EF
             get { return new Repository<Models.StoredGrant>(db.StoredGrants); }
         }
 
+        public IRepository<Models.RememberOption> RememberOptions
+        {
+            get
+            {
+                return new Repository<Models.RememberOption>(db.RememberOptions);
+            }
+        }
+
         public void SaveChanges()
         {
             try
