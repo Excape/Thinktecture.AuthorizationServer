@@ -221,6 +221,8 @@ namespace Thinktecture.AuthorizationServer.WebHost
                     var hsrKey = new SymmetricKey { Name = "HsrAppKey" };
                     hsrKey.SetValue(Convert.FromBase64String("i4SpI3zdts0yIHhfbBIeR4VuG1MJCfM1wcUZ2LVPFWA="));
 
+                    var rememberOptions = RememberOptionsDefaultData.CreateRememberOptions();
+
                     var application = new Application
                     {
                         Enabled = true,
@@ -234,6 +236,7 @@ namespace Thinktecture.AuthorizationServer.WebHost
                         TokenLifetime = 60,
                         AllowRefreshToken = true,
                         AllowRememberConsentDecision = true,
+                        RememberOptions = RememberOptionsDefaultData.CreateRememberOptions(),
                         SigningKey = key
                     };
                     
@@ -252,6 +255,7 @@ namespace Thinktecture.AuthorizationServer.WebHost
                         TokenLifetime = 1,
                         AllowRefreshToken = true,
                         AllowRememberConsentDecision = true,
+                        RememberOptions = RememberOptionsDefaultData.CreateRememberOptions(),
                         SigningKey = hsrKey
                     };
 

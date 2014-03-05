@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Thinktecture.AuthorizationServer.EF;
+﻿using System.Collections.Generic;
 using Thinktecture.AuthorizationServer.Interfaces;
 using Thinktecture.AuthorizationServer.Models;
 
@@ -12,9 +6,8 @@ namespace Thinktecture.AuthorizationServer.WebHost
 {
     public class RememberOptionsDefaultData
     {
-        public static void Populate(Application app, IAuthorizationServerAdministration config)
+        public static void PopulateDefaultData(Application app, IAuthorizationServerAdministration config)
         {
-
             var currentRememberOptions = app.RememberOptions;
 
             if (currentRememberOptions.Count > 0)
@@ -22,12 +15,23 @@ namespace Thinktecture.AuthorizationServer.WebHost
                 foreach (var remb in currentRememberOptions.ToArray())
                 {
                     config.RememberOptions.Remove(remb);
-                
                 }
                 config.SaveChanges();
             }
 
-            var rememberOptions = new List<RememberOption>
+            var rememberOptions = CreateRememberOptions();
+
+            foreach (var r in rememberOptions)
+            {
+                app.RememberOptions.Add(r);
+            }
+
+            config.SaveChanges();
+        }
+
+        public static List<RememberOption> CreateRememberOptions()
+        {
+            return new List<RememberOption>
             {
                 new RememberOption()
                 {
@@ -90,17 +94,6 @@ namespace Thinktecture.AuthorizationServer.WebHost
                     Value = -1
                 }
             };
-
-            foreach (var r in rememberOptions)
-            {
-                app.RememberOptions.Add(r);
-            }
-
-            config.SaveChanges();
-
-
-
-
         }
     }
 }

@@ -86,7 +86,7 @@ namespace Thinktecture.AuthorizationServer.WebHost.Areas.Admin.Api
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            RememberOptionsDefaultData.Populate(app, config);
+            RememberOptionsDefaultData.PopulateDefaultData(app, config);
 
             var data =
                 from s in app.RememberOptions
