@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Thinktecture Authorization Server (fork)</title>
+</head>
+<body>
+    <h1>
+        Setup</h1>
+	<h2>
+		Komponenten</h2>
+	<ul>
+		<li>Visual Studio 2012</li>
+		<li>NuGet Package Manager v2.2 oder höher
+			<ul>
+				<li>Unter Tools > Options den Eintrag Package Manager wählen und "Allow NuGet to download missing packages during build" aktivieren</li>
+			</ul>
+		</li>
+		
+	</ul>	
+    <h2>
+        Run
+    </h2>
+
+    <ol>
+        <li>Thinktecture.AuthorizationServer.sln öffnen</li>
+        <li>Projekt WebHost als Startup Projekt definieren</li>
+        <li>Mit F5 Starten</li>
+    </ol>
+	<h2>Änderungen im Fork</h2>
+	<ul>
+		<li>Sliding refresh token expiration: siehe <a href="https://github.com/thinktecture/Thinktecture.AuthorizationServer/pull/159">Pull-Request</a></li>
+		<li>Konfigurierbare Consent Remember Options: siehe <a href="https://github.com/thinktecture/Thinktecture.AuthorizationServer/issues/160">Issue auf Github</a></li>
+	</ul>
+		
+	<h2>ToDo</h2>
+	<ul>
+		<li>Asymmetrische Signatur der access token mit X509 Zertifikaten</li>
+		<li>Übersetzung der Oberfläche auf Deutsch für End-user (z.B. "Consent"-View)</li>
+		<li>Integration eines Identitiy Providers (Switch AAI oder ADFS)</li>
+	</ul>
+	
+	<h2>Siehe auch</h2>
+	<ul>
+		<li>Source: <a href="https://github.com/Excape/Thinktecture.AuthorizationServer">Thinktecture AuthorizationServer (fork r1suter)</a></li>
+		<li>Konfiguration mit lokalem STS: Dokument <a href="\\hsr.ch\root\ver\it\IT-BA\Projekte\MobileApps\OAuth">dotnet_authserver_sts</a></li>
+		<li>Sequenzdiagramm am Beispiel von Switch AAI: Dokument <a href="\\hsr.ch\root\ver\it\IT-BA\Projekte\MobileApps\OAuth">aai_auth_sequenzdiagramm</a></li>
+		<li><a href="http://tools.ietf.org/html/rfc6749">RFC 6749 - The OAuth 2.0 Authorization Framework</a></li>
+		<li><a href="http://tools.ietf.org/html/rfc6750">RFC 6750: OAuth2 Bearer Token Usage</a></li>
+		<li>Mögliche OAuth2 Angriffsszenarien: Dokument <a href="\\hsr.ch\root\ver\it\IT-BA\Projekte\MobileApps\OAuth">oAuth2_Angriffsszenarien</a></li>
+		<li><a href="http://leastprivilege.com/">Blog des Entwicklers</a>
+	</ul>
+
+</body>
+</html>
